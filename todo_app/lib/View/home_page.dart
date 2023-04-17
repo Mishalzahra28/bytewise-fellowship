@@ -45,6 +45,12 @@ class _MyHomePageState extends State<StatefulWidget>{
      );
   }
 
+  void deleteTask(int index){
+    setState(() {
+      todoList.removeAt(index);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
    return Scaffold(
@@ -62,7 +68,7 @@ class _MyHomePageState extends State<StatefulWidget>{
               child: ElevatedButton(
                style: ElevatedButton.styleFrom(
                  backgroundColor: Colors.redAccent.shade100,// foreground
-                  fixedSize: Size(150, 50)
+                  fixedSize: Size(150, 60)
                ),
                onPressed: newTask,
                child: Text('Add Task'),
@@ -74,7 +80,8 @@ class _MyHomePageState extends State<StatefulWidget>{
              itemBuilder:(context,index){
                return todoTile(title: todoList[index][0],
                    status: todoList[index][1],
-                   onChanged: (value)=>checkBoxChanged(value,index)
+                   onChanged: (value)=>checkBoxChanged(value,index),
+                   remove: (context)=>deleteTask(index)
                );
              },
            ),
