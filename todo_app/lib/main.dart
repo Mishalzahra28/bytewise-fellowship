@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import './View/home_page.dart';
 
-void main() async{
+void main() async {
   await Hive.initFlutter();
-  var box=await Hive.openBox('MyBox');
+  var box = await Hive.openBox('MyBox');
 
   runApp(const MyApp());
 }
@@ -21,5 +21,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-
