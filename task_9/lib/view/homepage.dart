@@ -1,6 +1,7 @@
 import 'dart:async';
 import '../utils/crossFade.dart';
 import 'package:flutter/material.dart';
+import '../utils/TweenAnimate.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
@@ -17,7 +18,10 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text("Cross Fade Animation"),
       ),
-      body: Center(child: CrossFade()),
+      body: Center(
+          child: Column(
+        children: [CrossFade(), TweenAnimate()],
+      )),
     );
   }
 }
