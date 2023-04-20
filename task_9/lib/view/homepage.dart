@@ -1,3 +1,5 @@
+import 'dart:async';
+import '../utils/crossFade.dart';
 import 'package:flutter/material.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -11,7 +13,11 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    throw UnimplementedError();
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Cross Fade Animation"),
+      ),
+      body: Center(child: CrossFade()),
+    );
   }
 }
