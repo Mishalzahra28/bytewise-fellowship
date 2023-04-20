@@ -20,7 +20,7 @@ class _TweenAnimateState extends State<TweenAnimate>
         AnimationController(vsync: this, duration: Duration(seconds: 5));
     animation = Tween(begin: 0.0, end: 200.0).animate(animationController);
     colorAnimation =
-        ColorTween(begin: Colors.blue.shade700, end: Colors.red.shade200)
+        ColorTween(begin: Colors.indigo.shade200, end: Colors.red.shade200)
             .animate(animationController);
     animationController.addListener(() {
       print(animation.value);
@@ -33,25 +33,28 @@ class _TweenAnimateState extends State<TweenAnimate>
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          width: animation.value,
-          height: animation.value,
-          color: colorAnimation.value,
-        ),
-        const Padding(
-          padding: EdgeInsets.all(5.0),
-          child: Text(
-            'Tween Animation',
-            style: TextStyle(
-                color: Colors.indigo,
-                height: 2,
-                fontWeight: FontWeight.w700,
-                fontSize: 18),
+    return Padding(
+      padding: const EdgeInsets.all(15.0),
+      child: Column(
+        children: [
+          Container(
+            width: animation.value,
+            height: animation.value,
+            color: colorAnimation.value,
           ),
-        )
-      ],
+          const Padding(
+            padding: EdgeInsets.all(5.0),
+            child: Text(
+              'Tween Animation',
+              style: TextStyle(
+                  color: Colors.indigo,
+                  height: 2,
+                  fontWeight: FontWeight.w700,
+                  fontSize: 18),
+            ),
+          )
+        ],
+      ),
     );
   }
 }

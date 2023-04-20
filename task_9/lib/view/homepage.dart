@@ -20,7 +20,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Center(
           child: Column(
-        children: [CrossFade(), TweenAnimate()],
+        children: [TweenAnimate(), CrossFade()],
       )),
     );
   }
