@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:photo_sharing_app/views/homepage/homepage.dart';
 import '../../../components/size_config.dart';
+import '../../../components/customButton.dart';
+import '../../../components/customField.dart';
 
 class Body extends StatefulWidget {
   @override
@@ -7,6 +10,12 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
+  void login() {
+    Navigator.of(context).push(
+      MaterialPageRoute(builder: (context) => homePage()),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -28,35 +37,9 @@ class _BodyState extends State<Body> {
               style: TextStyle(color: Colors.white, fontSize: 20),
             ),
             SizedBox(height: getProportionateScreenHeight(25.0)),
-            Padding(
-              padding: EdgeInsets.symmetric(
-                  horizontal: getProportionateScreenWidth(25.0)),
-              child: TextField(
-                decoration: InputDecoration(
-                  enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.grey.shade100)),
-                  fillColor: Colors.grey.shade50,
-                  filled: true,
-                  hintText: 'Username',
-                  hintStyle: TextStyle(color: Colors.grey.shade500),
-                ),
-              ),
-            ),
+            const customField(text: 'Username'),
             SizedBox(height: getProportionateScreenHeight(25.0)),
-            Padding(
-              padding: EdgeInsets.symmetric(
-                  horizontal: getProportionateScreenWidth(25.0)),
-              child: TextField(
-                decoration: InputDecoration(
-                  enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.grey.shade100)),
-                  fillColor: Colors.grey.shade50,
-                  filled: true,
-                  hintText: 'Password',
-                  hintStyle: TextStyle(color: Colors.grey.shade500),
-                ),
-              ),
-            ),
+            const customField(text: 'Password'),
             SizedBox(height: getProportionateScreenHeight(10.0)),
             Padding(
               padding: EdgeInsets.symmetric(
@@ -71,24 +54,7 @@ class _BodyState extends State<Body> {
                   ]),
             ),
             SizedBox(height: getProportionateScreenHeight(15.0)),
-            Container(
-              padding: EdgeInsets.symmetric(
-                  horizontal: getProportionateScreenWidth(45.0),
-                  vertical: getProportionateScreenHeight(20.0)),
-              margin: EdgeInsets.symmetric(
-                  horizontal: getProportionateScreenWidth(25.0)),
-              decoration: BoxDecoration(
-                color: Colors.orange.shade500,
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: const Text(
-                "Login",
-                style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20),
-              ),
-            )
+            customButton(text: 'Login', onClick: login)
           ],
         ),
       ),
