@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "841870914241",
+    "project_id": "photo-sharing-app-21172",
+    "storage_bucket": "photo-sharing-app-21172.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:841870914241:android:f3dba7dfda35caacdc1a40",
+        "android_client_info": {
+          "package_name": "com.example.photo_sharing_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "841870914241-i1duc4hs1aj6m2ltgna0p90oksptvmu6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBbvgFn9MLag8XJiQsuQGMGfthVMZTpZck"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "841870914241-i1duc4hs1aj6m2ltgna0p90oksptvmu6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:841870914241:android:c69f2c59a6874965dc1a40",
+        "android_client_info": {
+          "package_name": "project.photo_sharing_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "841870914241-i1duc4hs1aj6m2ltgna0p90oksptvmu6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBbvgFn9MLag8XJiQsuQGMGfthVMZTpZck"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "841870914241-i1duc4hs1aj6m2ltgna0p90oksptvmu6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

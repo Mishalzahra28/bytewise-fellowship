@@ -15,7 +15,7 @@ class _homePageState extends State<homePage> {
     SizeConfig().init(context);
     return Scaffold(
         appBar: AppBar(
-          title: const Text("Photo Share"),
+          title: const Text("Trending Pictures"),
         ),
         backgroundColor: Colors.black,
         body: Body());

@@ -20,44 +20,46 @@ class _BodyState extends State<Body> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Padding(
-              padding: EdgeInsets.symmetric(
-                  horizontal: getProportionateScreenWidth(20)),
-              child: Image.asset(
-                'lib/assets/login.png',
-                height: getProportionateScreenHeight(300.0),
-                width: getProportionateScreenWidth(300.0),
-              ),
+          child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Padding(
+            padding: EdgeInsets.symmetric(
+                horizontal: getProportionateScreenWidth(20)),
+            child: Image.asset(
+              'lib/assets/login.png',
+              height: getProportionateScreenHeight(300.0),
+              width: getProportionateScreenWidth(300.0),
             ),
-            const Text(
-              'Welocme Back',
-              style: TextStyle(color: Colors.white, fontSize: 20),
-            ),
-            SizedBox(height: getProportionateScreenHeight(25.0)),
-            const customField(text: 'Username'),
-            SizedBox(height: getProportionateScreenHeight(25.0)),
-            const customField(text: 'Password'),
-            SizedBox(height: getProportionateScreenHeight(10.0)),
-            Padding(
+          ),
+          const Text(
+            'Welocme Back',
+            style: TextStyle(color: Colors.white, fontSize: 20),
+          ),
+          Padding(
               padding: EdgeInsets.symmetric(
                   horizontal: getProportionateScreenWidth(25.0)),
-              child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: const [
-                    Text(
-                      "Forgot Password?",
-                      style: TextStyle(color: Colors.grey),
-                    ),
-                  ]),
-            ),
-            SizedBox(height: getProportionateScreenHeight(15.0)),
-            customButton(text: 'Login', onClick: login)
-          ],
-        ),
-      ),
+              child: Column(
+                children: [
+                  SizedBox(height: getProportionateScreenHeight(25.0)),
+                  const customField(text: 'Username'),
+                  SizedBox(height: getProportionateScreenHeight(25.0)),
+                  const customField(text: 'Password'),
+                  SizedBox(height: getProportionateScreenHeight(10.0)),
+                  Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: const [
+                        Text(
+                          "Forgot Password?",
+                          style: TextStyle(color: Colors.grey),
+                        ),
+                      ]),
+                ],
+              )),
+          SizedBox(height: getProportionateScreenHeight(15.0)),
+          customButton(text: 'Login', onClick: login)
+        ],
+      )),
     );
   }
 }

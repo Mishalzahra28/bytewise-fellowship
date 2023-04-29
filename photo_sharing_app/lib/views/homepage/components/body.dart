@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:photo_sharing_app/views/homepage/homepage.dart';
-import '../../../components/size_config.dart';
 import '../../../components/customButton.dart';
-import '../../../components/customField.dart';
+import '../../../components/dialog_box.dart';
 
 class Body extends StatefulWidget {
   @override
@@ -10,14 +8,35 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
+  void upload() {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return Dialog_box(
+              // controller: _textController,
+              );
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return const SafeArea(
-        child: Center(
-      child: Text(
-        'Homepage',
-        style: TextStyle(color: Colors.white),
-      ),
+    return SafeArea(
+        child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        const Center(
+          child: Text(
+            'Homepage',
+            style: TextStyle(color: Colors.white),
+          ),
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [customButton(text: 'Upload', onClick: upload)],
+        )
+      ],
     ));
   }
 }
