@@ -61,7 +61,7 @@ class Dialog_box extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const customField(text: 'Enter Caption'),
+              // const customField(text: 'Enter Caption'),
               IconButton(
                   onPressed: selectImage,
                   icon: const Icon(Icons.camera_alt_outlined)),
