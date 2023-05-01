@@ -5,50 +5,40 @@ import './customButton.dart';
 import 'package:flutter/material.dart';
 import './customField.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:firebase_storage/firebase_storage.dart' as firabase_storage;
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 class Dialog_box extends StatelessWidget {
   Dialog_box({
     super.key,
   });
-  XFile? file;
+  late File selectedImage;
   String imageURL = '';
   late String selectedFile;
   late Uint8List selectedImageInBytes;
 
   void selectImage() async {
     ImagePicker imagePicker = ImagePicker();
-    file = await imagePicker.pickImage(source: ImageSource.gallery);
+    XFile? file = await imagePicker.pickImage(source: ImageSource.gallery);
     selectedFile = file!.name;
-    print('${file?.path}');
+    print('${file.path}');
+    selectedImage = File(file.path);
   }
 
-  void uploadImage() async {
-    // Reference referenceRoot = FirebaseStorage.instance.ref();
-    // Reference referenceDirImages = referenceRoot.child('images');
-    // Reference referenceImageToUpload =
-    //     referenceDirImages.child('${file?.name}');
+  void uploadImage() {
+    upload(selectedImage, selectedFile);
+  }
+
+  Future<void> upload(File file, String imageName) async {
     try {
-      // await referenceImageToUpload.putFile(file!.path as File);
-      // imageURL = await referenceImageToUpload.getDownloadURL();
-      firabase_storage.UploadTask uploadTask;
-
-      firabase_storage.Reference ref = firabase_storage.FirebaseStorage.instance
-          .ref()
-          .child('image')
-          .child('/' + selectedFile);
-      print('${ref} reff');
-      final metadata =
-          firabase_storage.SettableMetadata(contentType: 'image/jpeg');
-
-      //uploadTask = ref.putFile(File(file.path));
-      uploadTask = ref.putData(selectedImageInBytes, metadata);
-
-      await uploadTask.whenComplete(() => null);
-      imageURL = await ref.getDownloadURL();
-      print('${imageURL} URLLL');
-    } catch (error) {}
+      final FirebaseStorage storage = FirebaseStorage.instance;
+      final Reference ref = storage.ref().child('images/$imageName');
+      await ref.putFile(file);
+      final String downloadURL = await ref.getDownloadURL();
+      print('File uploaded successfully. Download URL: $downloadURL');
+    } catch (e) {
+      print(e.toString());
+    }
   }
 
   @override
@@ -61,7 +51,6 @@ class Dialog_box extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              // const customField(text: 'Enter Caption'),
               IconButton(
                   onPressed: selectImage,
                   icon: const Icon(Icons.camera_alt_outlined)),
