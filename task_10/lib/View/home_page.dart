@@ -1,93 +1,223 @@
 import 'package:flutter/material.dart';
-import '../utils/todo_tile.dart';
-import '../utils/dialog_box.dart';
+import 'package:task_10/notifier/todo_notifier.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key});
+class TodoScreen extends StatelessWidget {
+  const TodoScreen({Key? key}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _MyHomePageState();
+  Widget build(BuildContext context) {
+    return DefaultTabController(
+      length: 2,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(
+            'TODOS',
+            style: Theme.of(context)
+                .textTheme
+                .headline4!
+                .copyWith(color: Colors.white),
+          ),
+        ),
+        body: SafeArea(
+          child: TabBarView(
+            children: [
+              Column(
+                children: [
+                  AddTodoPanel(),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Expanded(
+                    // Method 1
+                    child: Consumer(
+                      builder: (context, ref, child) {
+                        return ListView(
+                          children: [
+                            ...ref
+                                .watch(todosProvider)
+                                .map(
+                                  (todo) => ProviderScope(
+                                    overrides: [
+                                      _currentTodo.overrideWithValue(todo)
+                                    ],
+                                    child: const TodoItem(),
+                                  ),
+                                )
+                                .toList()
+                          ],
+                        );
+                      },
+                    ),
+                  ),
+                ],
+              ),
+              // Method 1
+              Consumer(
+                builder: (context, ref, child) {
+                  return ListView(
+                    children: [
+                      ...ref
+                          .watch(completedTodos)
+                          .map(
+                            (todo) => ProviderScope(
+                              overrides: [_currentTodo.overrideWithValue(todo)],
+                              child: const TodoItem(),
+                            ),
+                          )
+                          .toList()
+                    ],
+                  );
+                },
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
 }
 
-class _MyHomePageState extends State<StatefulWidget> {
-  final _textController = TextEditingController();
+final _currentTodo = Provider<Todo>((ref) => throw UnimplementedError());
+
+class TodoItem extends StatefulWidget {
+  const TodoItem({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  _TodoItemState createState() => _TodoItemState();
+}
+
+class _TodoItemState extends State<TodoItem> {
+  late TextEditingController _textEditingController;
+  late FocusNode _textFocusNode;
+
+  bool hasFocus = false;
+
   @override
   void initState() {
     super.initState();
+    _textEditingController = TextEditingController();
+    _textFocusNode = FocusNode();
   }
 
-  List todoList = [
-    ['Prepare for Exams', false],
-    ['Learn Flutter', false],
-    ['Learn to Cook', false],
-  ];
-  void checkBoxChanged(bool? value, int index) {
-    setState(() {
-      todoList[index][1] = !todoList[index][1];
-    });
-  }
-
-  void onSave() {
-    setState(() {
-      todoList.add([_textController.text, false]);
-      _textController.clear();
-    });
-    Navigator.of(context).pop();
-  }
-
-  //adding new task
-  void newTask() {
-    showDialog(
-        context: context,
-        builder: (context) {
-          return Dialog_box(
-            controller: _textController,
-            onSave: onSave,
-            onCancel: () => Navigator.of(context).pop(),
-          );
-        });
-  }
-
-  void deleteTask(int index) {
-    setState(() {
-      todoList.removeAt(index);
-    });
+  @override
+  void dispose() {
+    _textEditingController.dispose();
+    _textFocusNode.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.black,
-          title: Text('Todo App'),
-        ),
-        body: SingleChildScrollView(
-            physics: ScrollPhysics(),
-            child: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(15.0),
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor:
-                            Colors.redAccent.shade100, // foreground
-                        fixedSize: Size(150, 60)),
-                    onPressed: newTask,
-                    child: Text('Add Task'),
+    // Method 1
+    return Consumer(
+      builder: (context, ref, select) {
+        final todo = ref.watch(_currentTodo);
+        return Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Dismissible(
+            key: UniqueKey(),
+            background: Container(color: Colors.red),
+            onDismissed: (_) {
+              // Method 3
+              ref.read(todosProvider).remove(todo.id);
+            },
+            child: FocusScope(
+              child: Focus(
+                onFocusChange: (isFocused) {
+                  if (!isFocused) {
+                    setState(() {
+                      hasFocus = false;
+                    });
+                    // Method 3
+                    ref.read(todosProvider.notifier).edit(
+                        id: todo.id, description: _textEditingController.text);
+                  } else {
+                    _textEditingController.text = todo.description;
+                    _textEditingController.selection =
+                        TextSelection.fromPosition(TextPosition(
+                            offset: _textEditingController.text.length));
+                  }
+                },
+                child: ListTile(
+                  onTap: () {
+                    setState(() {
+                      hasFocus = true;
+                    });
+                    _textFocusNode.requestFocus();
+                  },
+                  title: hasFocus
+                      ? TextField(
+                          focusNode: _textFocusNode,
+                          controller: _textEditingController,
+                        )
+                      : Text(todo.description),
+                  trailing: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Checkbox(
+                        value: todo.completed,
+                        onChanged: (_) {
+                          // Method 3
+                          ref.read(todosProvider.notifier).toggle(todo.id);
+                        },
+                      ),
+                      IconButton(
+                        icon: Icon(Icons.delete),
+                        onPressed: () {
+                          // Method 3
+                          ref.read(todosProvider.notifier).remove(todo.id);
+                        },
+                      ),
+                    ],
                   ),
                 ),
-                ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: todoList.length,
-                  itemBuilder: (context, index) {
-                    return todoTile(
-                        title: todoList[index][0],
-                        status: todoList[index][1],
-                        onChanged: (value) => checkBoxChanged(value, index),
-                        remove: (context) => deleteTask(index));
-                  },
-                ),
-              ],
-            )));
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+}
+
+class AddTodoPanel extends ConsumerStatefulWidget {
+  const AddTodoPanel({Key? key}) : super(key: key);
+
+  @override
+  _AddTodoPanelState createState() => _AddTodoPanelState();
+}
+
+class _AddTodoPanelState extends ConsumerState<AddTodoPanel> {
+  TextEditingController _textEditingController = TextEditingController();
+
+  void _submit([String? value]) {
+    // Method 3
+    ref.read(todosProvider.notifier).add(_textEditingController.value.text);
+    _textEditingController.clear();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Row(
+        children: [
+          Expanded(
+            child: TextField(
+              controller: _textEditingController,
+              decoration: InputDecoration(hintText: 'New todo'),
+              onSubmitted: _submit,
+            ),
+          ),
+          IconButton(
+            icon: Icon(Icons.check),
+            onPressed: _submit,
+          ),
+        ],
+      ),
+    );
   }
 }
