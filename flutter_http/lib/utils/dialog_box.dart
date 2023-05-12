@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_http/utils/my_button.dart';
 
 class Dialog_box extends StatelessWidget {
-  final controller;
+  final taskcontroller;
+  final datecontroller;
   VoidCallback onSave;
   VoidCallback onCancel;
   Dialog_box(
       {super.key,
-      required this.controller,
+      required this.taskcontroller,
+      required this.datecontroller,
       required this.onSave,
       required this.onCancel});
 
@@ -16,13 +18,23 @@ class Dialog_box extends StatelessWidget {
     return AlertDialog(
         backgroundColor: Colors.white,
         content: Container(
-          height: 140,
+          height: 250,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               TextField(
-                controller: controller,
-                decoration: InputDecoration(border: OutlineInputBorder()),
+                controller: taskcontroller,
+                decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    hintText: "Task",
+                    hintStyle: TextStyle(color: Colors.grey)),
+              ),
+              TextField(
+                controller: datecontroller,
+                decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    hintText: "Date",
+                    hintStyle: TextStyle(color: Colors.grey)),
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,

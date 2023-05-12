@@ -14,7 +14,7 @@ class MyButton extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 10.0),
       child: MaterialButton(
         onPressed: onPressed,
-        color: Colors.redAccent.shade100,
+        color: Colors.orange,
         child: Text(
           text,
           style: TextStyle(color: Colors.white),

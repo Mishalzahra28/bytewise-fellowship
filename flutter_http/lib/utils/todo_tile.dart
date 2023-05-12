@@ -3,54 +3,60 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 
 class todoTile extends StatelessWidget {
   final String title;
-  final bool status;
+  final String date;
   Function(bool?)? onChanged;
   Function(BuildContext)? remove;
-   todoTile({
+  todoTile({
     super.key,
     required this.title,
-    required this.status,
-    required this.onChanged,
-    required this.remove,
-}) ;
-
+    required this.date,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return  Padding(
-    padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 10),
-    child:Slidable(
-      endActionPane: ActionPane(
-        motion: StretchMotion(),
-        children: [
-          SlidableAction(
-            onPressed: remove,
-            icon: Icons.delete ,
-            backgroundColor: Colors.redAccent.shade100,
-          )
-        ],
-      ),
-         child: Container(
-          decoration: BoxDecoration(
-            color:Colors.teal.shade400,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 10),
+      child: Slidable(
+        endActionPane: ActionPane(
+          motion: StretchMotion(),
+          children: [
+            SlidableAction(
+              onPressed: remove,
+              icon: Icons.delete,
+              backgroundColor: Colors.redAccent.shade100,
+            )
+          ],
+        ),
+        child: Container(
+          width: 350,
+          decoration: const BoxDecoration(
+            color: Colors.indigo,
           ),
           padding: const EdgeInsets.all(20.0),
-          child:Row(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Checkbox(value: status, onChanged: onChanged, checkColor: Colors.black, fillColor:MaterialStateProperty.resolveWith ((Set  states) {
-                if (states.contains(MaterialState.disabled)) {
-                  return Colors.white.withOpacity(.32);
-                }
-                return Colors.white;
-              }) ,),
-              Text(title,
-              style: TextStyle(color: Colors.white,
-              decoration: status ? TextDecoration.lineThrough : TextDecoration.none,
-              )
+              Padding(
+                padding: const EdgeInsets.all(4.0),
+                child: Text(
+                  title,
+                  style: const TextStyle(color: Colors.white, fontSize: 20),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(4.0),
+                child: Text(
+                  date,
+                  style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 15,
+                      fontWeight: FontWeight.w900),
+                  textAlign: TextAlign.center,
+                ),
               ),
             ],
           ),
-
         ),
       ),
     );
