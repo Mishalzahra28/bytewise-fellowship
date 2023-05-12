@@ -5,6 +5,7 @@ import '../utils/my_button.dart';
 import '../data/http.dart';
 import 'package:uuid/uuid.dart';
 import '../data/http.dart';
+import 'package:getwidget/getwidget.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -14,6 +15,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<StatefulWidget> {
+  var _isLoading = false;
   final _textController = TextEditingController();
   final _dateController = TextEditingController();
   List<dynamic> todoList = [];
@@ -22,17 +24,27 @@ class _MyHomePageState extends State<StatefulWidget> {
     super.initState();
   }
 
-  void onSave() async {
+  void onSave() {
     var uuid = Uuid();
     var id = uuid.v4().toString();
     Object todo = {
       id: {'title': _textController.text, 'date': _dateController.text}
     };
+    postData(todo);
+    GFToast.showToast(
+      'New Task Added',
+      context,
+    );
+
+    Navigator.of(context).pop();
+    getTasks();
+  }
+
+  void postData(Object todo) async {
     var response = await BaseClient().post('todos.json', todo);
     if (response == null) return;
     print('Successful');
     print(response);
-    Navigator.of(context).pop();
   }
 
   void newTask() {
@@ -48,19 +60,28 @@ class _MyHomePageState extends State<StatefulWidget> {
         });
   }
 
-  // void deleteTask(int index) {
-  //   setState(() {
-  //     todoList.removeAt(index);
-  //   });
-  //   updateData();
-  // }
+  void deleteTask(String id) async {
+    var response = await BaseClient().delete('todos/$id.json');
+    getTasks();
+  }
+
+  void remove(String id) {
+    GFToast.showToast(
+      'Task Deleted!',
+      context,
+    );
+    deleteTask(id);
+  }
 
   void getTasks() async {
+    setState(() {
+      _isLoading = true;
+    });
     var response = await BaseClient().get('todos.json');
     setState(() {
       todoList = response;
+      _isLoading = false;
     });
-    print(todoList);
     if (response == null) return;
     print('Successful');
     print("end of get task");
@@ -83,14 +104,19 @@ class _MyHomePageState extends State<StatefulWidget> {
                   onPressed: newTask,
                 ),
                 MyButton(text: 'Show Weekly Tasks', onPressed: getTasks),
-                ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: todoList.length,
-                  itemBuilder: (context, index) {
-                    return todoTile(
-                        title: todoList[index][0], date: todoList[index][1]);
-                  },
-                ),
+                _isLoading
+                    ? GFLoader(type: GFLoaderType.ios)
+                    : ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: todoList.length,
+                        itemBuilder: (context, index) {
+                          return todoTile(
+                              title: todoList[index][1],
+                              date: todoList[index][2],
+                              remove: (context) =>
+                                  deleteTask(todoList[index][0]));
+                        },
+                      ),
               ],
             )));
   }

@@ -14,7 +14,7 @@ class BaseClient {
       print('succesfull');
       final res = json.decode(response.body) as Map<String, dynamic>;
       res.forEach((id, todoData) {
-        todoList.add([todoData["title"], todoData["date"]]);
+        todoList.add([id, todoData["title"], todoData["date"]]);
       });
       print(res);
       print(todoList);
@@ -30,7 +30,8 @@ class BaseClient {
     var response = await http.patch(url, body: _data);
   }
 
-  Future<dynamic> put(String api) async {}
-
-  Future<dynamic> delete(String api) async {}
+  Future<dynamic> delete(String api) async {
+    var url = Uri.parse(_baseURL + api);
+    var response = await http.delete(url);
+  }
 }

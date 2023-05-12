@@ -4,13 +4,12 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 class todoTile extends StatelessWidget {
   final String title;
   final String date;
-  Function(bool?)? onChanged;
   Function(BuildContext)? remove;
-  todoTile({
-    super.key,
-    required this.title,
-    required this.date,
-  });
+  todoTile(
+      {super.key,
+      required this.title,
+      required this.date,
+      required this.remove});
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +22,7 @@ class todoTile extends StatelessWidget {
             SlidableAction(
               onPressed: remove,
               icon: Icons.delete,
-              backgroundColor: Colors.redAccent.shade100,
+              backgroundColor: Colors.orangeAccent,
             )
           ],
         ),
