@@ -46,7 +46,7 @@ class SplashScreen extends StatelessWidget {
                               builder: (context) => const Login()));
                     }),
                 CustomBtn(
-                    text: "Sign Up",
+                    text: "Create account",
                     onBtnPressed: () {
                       Navigator.push(
                           context,
