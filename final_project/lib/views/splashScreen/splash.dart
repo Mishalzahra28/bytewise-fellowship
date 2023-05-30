@@ -40,10 +40,8 @@ class SplashScreen extends StatelessWidget {
                 CustomBtn(
                     text: "Login",
                     onBtnPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const Login()));
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => Login()));
                     }),
                 CustomBtn(
                     text: "Create account",
