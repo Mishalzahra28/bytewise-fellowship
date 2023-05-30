@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import "../../utils/button.dart";
+import "../login/Login.dart";
+import '../register/register.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
@@ -35,8 +37,22 @@ class SplashScreen extends StatelessWidget {
             ),
             Column(
               children: [
-                CustomBtn(text: "Login", onBtnPressed: () {}),
-                CustomBtn(text: "Sign Up", onBtnPressed: () {})
+                CustomBtn(
+                    text: "Login",
+                    onBtnPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const Login()));
+                    }),
+                CustomBtn(
+                    text: "Sign Up",
+                    onBtnPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const Register()));
+                    })
               ],
             )
           ],
