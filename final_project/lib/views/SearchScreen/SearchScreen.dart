@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 
-class NewTweet extends StatefulWidget {
+class SearchScreen extends StatefulWidget {
   @override
-  _NewTweetState createState() => _NewTweetState();
+  _SearchScreenState createState() => _SearchScreenState();
 }
 
-class _NewTweetState extends State<NewTweet> {
+class _SearchScreenState extends State<SearchScreen> {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
         body: SafeArea(
       child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0),
-          child: Text("NewTweet")),
+          child: Text("SearchScreen")),
     ));
   }
 }

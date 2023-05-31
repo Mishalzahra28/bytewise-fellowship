@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 
-class NewTweet extends StatefulWidget {
+class Profile extends StatefulWidget {
   @override
-  _NewTweetState createState() => _NewTweetState();
+  _ProfileState createState() => _ProfileState();
 }
 
-class _NewTweetState extends State<NewTweet> {
+class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
         body: SafeArea(
       child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0),
-          child: Text("NewTweet")),
+          child: Text("Profile")),
     ));
   }
 }
