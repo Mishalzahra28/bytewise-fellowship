@@ -24,4 +24,24 @@ class AuthService {
       return false;
     }
   }
+
+  static Future<bool> Login(String email, String password) async {
+    try {
+      await _auth.signInWithEmailAndPassword(email: email, password: password);
+      return true;
+    } catch (e) {
+      print(e);
+      return false;
+    }
+  }
+
+  static Future<bool> resetPassword(String email) async {
+    try {
+      await _auth.sendPasswordResetEmail(email: email);
+      return true;
+    } catch (e) {
+      print(e);
+      return false;
+    }
+  }
 }

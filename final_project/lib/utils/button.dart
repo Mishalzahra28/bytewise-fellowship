@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class CustomBtn extends StatelessWidget {
   late final String text;
-  VoidCallback onBtnPressed;
+  final VoidCallback onBtnPressed;
   CustomBtn({
     super.key,
     required this.text,
