@@ -8,31 +8,37 @@ import '../NotificationScreen/NotificationScreen.dart';
 import '../SearchScreen/SearchScreen.dart';
 
 class FeedScreen extends StatefulWidget {
+  final String currentUsedId;
+
+  const FeedScreen({super.key, required this.currentUsedId});
+
   @override
   _FeedScreenState createState() => _FeedScreenState();
 }
 
 class _FeedScreenState extends State<FeedScreen> {
   int _selectedTab = 0;
-  List<Widget> _feedScreen = [
-    HomeScreen(),
-    SearchScreen(),
-    NotificationScreen(),
-    Profile(),
-  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _feedScreen.elementAt(_selectedTab),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => NewTweet()));
-        },
-        child: Image.asset(
-          "lib/assets/newtweet.png",
+      body: [
+        HomeScreen(),
+        SearchScreen(),
+        NotificationScreen(),
+        Profile(
+          currentUserId: widget.currentUsedId,
+          visitedUserId: widget.currentUsedId,
         ),
-      ),
+      ].elementAt(_selectedTab),
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: () {
+      //     Navigator.push(
+      //         context, MaterialPageRoute(builder: (context) => NewTweet()));
+      //   },
+      //   child: Image.asset(
+      //     "lib/assets/newtweet.png",
+      //   ),
+      // ),
       bottomNavigationBar: CupertinoTabBar(
           onTap: (index) {
             setState(() {
@@ -41,7 +47,7 @@ class _FeedScreenState extends State<FeedScreen> {
           },
           activeColor: Colors.blue,
           currentIndex: _selectedTab,
-          items: [
+          items: const [
             BottomNavigationBarItem(icon: Icon(Icons.home)),
             BottomNavigationBarItem(icon: Icon(Icons.search)),
             BottomNavigationBarItem(icon: Icon(Icons.notifications)),

@@ -12,10 +12,13 @@ class AuthService {
 
       User signedInUser = authResult.user!;
       if (signedInUser != null) {
-        _firestore
-            .collection('users')
-            .doc(signedInUser.uid)
-            .set({'name': name, 'email': email, 'profilePicture': ""});
+        _firestore.collection('users').doc(signedInUser.uid).set({
+          'name': name,
+          'email': email,
+          'profilePicture': '',
+          'coverImage': '',
+          'bio': ''
+        });
         return true;
       }
       return false;
@@ -42,6 +45,14 @@ class AuthService {
     } catch (e) {
       print(e);
       return false;
+    }
+  }
+
+  static void logout() {
+    try {
+      _auth.signOut();
+    } catch (e) {
+      print(e);
     }
   }
 }
