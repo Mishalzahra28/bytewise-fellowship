@@ -5,6 +5,8 @@ import "../../services/authServices.dart";
 import "../../services/constants.dart";
 import "../../Models/UserModels.dart";
 import "../splashScreen/splash.dart";
+import "../../Models/Tweet.dart";
+import "../../utils/TweetContainer.dart";
 
 class Profile extends StatefulWidget {
   final String currentUserId;
@@ -21,8 +23,8 @@ class _ProfileState extends State<Profile> {
   int _followingCount = 0;
   bool _isFollowing = false;
   int _profileSegmentedValue = 0;
-  // List<Tweet> _allTweets = [];
-  // List<Tweet> _mediaTweets = [];
+  List<Tweet> _allTweets = [];
+  List<Tweet> _mediaTweets = [];
 
   final Map<int, Widget> _profileTabs = <int, Widget>{
     0: const Padding(
@@ -49,40 +51,41 @@ class _ProfileState extends State<Profile> {
     ),
   };
 
-  //  Widget buildProfileWidgets(UserModel author) {
-  //   switch (_profileSegmentedValue) {
-  //     case 0:
-  //       return ListView.builder(
-  //           shrinkWrap: true,
-  //           physics: NeverScrollableScrollPhysics(),
-  //           itemCount: _allTweets.length,
-  //           itemBuilder: (context, index) {
-  //             return TweetContainer(
-  //               currentUserId: widget.currentUserId,
-  //               author: author,
-  //               tweet: _allTweets[index],
-  //             );
-  //           });
-  //       break;
-  //     case 1:
-  //       return ListView.builder(
-  //           shrinkWrap: true,
-  //           physics: NeverScrollableScrollPhysics(),
-  //           itemCount: _mediaTweets.length,
-  //           itemBuilder: (context, index) {
-  //             return TweetContainer(
-  //               currentUserId: widget.currentUserId,
-  //               author: author,
-  //               tweet: _mediaTweets[index],
-  //             );
-  //           });
-  //       break;
-  //     default:
-  //       return Center(
-  //           child: Text('Something wrong', style: TextStyle(fontSize: 25)));
-  //       break;
-  //   }
-  // }
+  Widget buildProfileWidgets(UserModel author) {
+    switch (_profileSegmentedValue) {
+      case 0:
+        return ListView.builder(
+            shrinkWrap: true,
+            physics: NeverScrollableScrollPhysics(),
+            itemCount: _allTweets.length,
+            itemBuilder: (context, index) {
+              return TweetContainer(
+                currentUserId: widget.currentUserId,
+                author: author,
+                tweet: _allTweets[index],
+              );
+            });
+        break;
+      case 1:
+        return ListView.builder(
+            shrinkWrap: true,
+            physics: NeverScrollableScrollPhysics(),
+            itemCount: _mediaTweets.length,
+            itemBuilder: (context, index) {
+              return TweetContainer(
+                currentUserId: widget.currentUserId,
+                author: author,
+                tweet: _mediaTweets[index],
+              );
+            });
+        break;
+      default:
+        return Center(
+            child: Text('Something wrong', style: TextStyle(fontSize: 25)));
+        break;
+    }
+  }
+
   getFollowersCount() async {
     int followersCount =
         await DatabaseService.followersNum(widget.visitedUserId);
@@ -108,6 +111,8 @@ class _ProfileState extends State<Profile> {
     super.initState();
     getFollowersCount();
     getFollowingCount();
+    print("printing snapshot");
+    print(usersRef.doc(widget.visitedUserId).toString());
     // setupIsFollowing();
     // getAllTweets();
   }
@@ -194,7 +199,7 @@ class _ProfileState extends State<Profile> {
                           CircleAvatar(
                             radius: 45,
                             backgroundImage: userModel.profilePicture.isEmpty
-                                ? Image.asset('lib/assets/profile.jpg')
+                                ? AssetImage('lib/assets/profile.jpg')
                                     as ImageProvider
                                 : NetworkImage(userModel.profilePicture),
                           ),
@@ -209,7 +214,7 @@ class _ProfileState extends State<Profile> {
                                     //     ),
                                     //   ),
                                     // );
-                                    setState(() {});
+                                    // setState(() {});
                                   },
                                   child: Container(
                                     width: 100,

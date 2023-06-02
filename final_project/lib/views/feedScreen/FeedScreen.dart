@@ -19,26 +19,27 @@ class FeedScreen extends StatefulWidget {
 class _FeedScreenState extends State<FeedScreen> {
   int _selectedTab = 0;
   @override
+  void initState() {
+    print("inside feed");
+    print(widget.currentUsedId);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: [
-        HomeScreen(),
-        SearchScreen(),
+        HomeScreen(
+          currentUserId: widget.currentUsedId,
+        ),
+        SearchScreen(
+          currentUserId: widget.currentUsedId,
+        ),
         NotificationScreen(),
         Profile(
           currentUserId: widget.currentUsedId,
           visitedUserId: widget.currentUsedId,
         ),
       ].elementAt(_selectedTab),
-      // floatingActionButton: FloatingActionButton(
-      //   onPressed: () {
-      //     Navigator.push(
-      //         context, MaterialPageRoute(builder: (context) => NewTweet()));
-      //   },
-      //   child: Image.asset(
-      //     "lib/assets/newtweet.png",
-      //   ),
-      // ),
       bottomNavigationBar: CupertinoTabBar(
           onTap: (index) {
             setState(() {

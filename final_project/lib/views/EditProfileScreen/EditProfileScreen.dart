@@ -69,12 +69,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             widget.user.coverImage, _coverImage);
       }
       UserModel user = UserModel(
-        id: widget.user.id,
-        name: _name,
-        profilePicture: profilePictureUrl,
-        bio: _bio,
-        coverImage: coverPictureUrl,
-      );
+          id: widget.user.id,
+          name: _name,
+          profilePicture: profilePictureUrl,
+          bio: _bio,
+          coverImage: coverPictureUrl,
+          email: widget.user.email);
 
       DatabaseService.updateUserData(user);
       Navigator.pop(context);
