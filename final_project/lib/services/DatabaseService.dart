@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import './constants.dart';
-// // import 'package:twitter/Models/Activity.dart';
+import '../Models/Activity.dart';
 import '../Models/Tweet.dart';
 import '../Models/UserModels.dart';
 
@@ -200,35 +200,35 @@ class DatabaseService {
     return userDoc.exists;
   }
 
-  // static Future<List<Activity>> getActivities(String userId) async {
-  //   QuerySnapshot userActivitiesSnapshot = await activitiesRef
-  //       .doc(userId)
-  //       .collection('userActivities')
-  //       .orderBy('timestamp', descending: true)
-  //       .get();
+  static Future<List<Activity>> getActivities(String userId) async {
+    QuerySnapshot userActivitiesSnapshot = await activitiesRef
+        .doc(userId)
+        .collection('userActivities')
+        .orderBy('timestamp', descending: true)
+        .get();
 
-  //   List<Activity> activities = userActivitiesSnapshot.docs
-  //       .map((doc) => Activity.fromDoc(doc))
-  //       .toList();
+    List<Activity> activities = userActivitiesSnapshot.docs
+        .map((doc) => Activity.fromDoc(doc))
+        .toList();
 
-  //   return activities;
-  // }
+    return activities;
+  }
 
-  // static void addActivity(
-  //     String currentUserId, Tweet tweet, bool follow, String followedUserId) {
-  //   if (follow) {
-  //     activitiesRef.doc(followedUserId).collection('userActivities').add({
-  //       'fromUserId': currentUserId,
-  //       'timestamp': Timestamp.fromDate(DateTime.now()),
-  //       "follow": true,
-  //     });
-  //   } else {
-  //     //like
-  //     activitiesRef.doc(tweet.authorId).collection('userActivities').add({
-  //       'fromUserId': currentUserId,
-  //       'timestamp': Timestamp.fromDate(DateTime.now()),
-  //       "follow": false,
-  //     });
-  //   }
-  // }
+  static void addActivity(
+      String currentUserId, Tweet tweet, bool follow, String followedUserId) {
+    if (follow) {
+      activitiesRef.doc(followedUserId).collection('userActivities').add({
+        'fromUserId': currentUserId,
+        'timestamp': Timestamp.fromDate(DateTime.now()),
+        "follow": true,
+      });
+    } else {
+      //like
+      activitiesRef.doc(tweet.authorId).collection('userActivities').add({
+        'fromUserId': currentUserId,
+        'timestamp': Timestamp.fromDate(DateTime.now()),
+        "follow": false,
+      });
+    }
+  }
 }

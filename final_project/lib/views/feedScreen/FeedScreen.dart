@@ -34,7 +34,9 @@ class _FeedScreenState extends State<FeedScreen> {
         SearchScreen(
           currentUserId: widget.currentUsedId,
         ),
-        NotificationScreen(),
+        NotificationsScreen(
+          currentUserId: widget.currentUsedId,
+        ),
         Profile(
           currentUserId: widget.currentUsedId,
           visitedUserId: widget.currentUsedId,
