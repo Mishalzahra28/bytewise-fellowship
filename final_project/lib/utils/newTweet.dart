@@ -3,12 +3,10 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import '../services/constants.dart';
-import '../Models/UserModels.dart';
 import '../services/DatabaseService.dart';
 import '../services/StorageService.dart';
 import '../utils/button.dart';
-import '../Models/Tweet.dart';
+import '../services/Models/Tweet.dart';
 
 class NewTweet extends StatefulWidget {
   final String currentUserId;

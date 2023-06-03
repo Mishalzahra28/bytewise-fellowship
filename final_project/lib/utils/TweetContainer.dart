@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import '../services/constants.dart';
-import '../Models/Tweet.dart';
-import '../Models/UserModels.dart';
+import '../services/Models/Tweet.dart';
+import '../services/Models/UserModels.dart';
 import '../services/DatabaseService.dart';
 
 class TweetContainer extends StatefulWidget {

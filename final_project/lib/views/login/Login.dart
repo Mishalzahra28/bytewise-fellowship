@@ -5,6 +5,7 @@ import "../../utils/button.dart";
 import "../../utils/errorDialog.dart";
 import "../../utils/dialogBox.dart";
 import "../register/register.dart";
+import '../../services/Models/Activity.dart';
 
 class Login extends StatefulWidget {
   @override

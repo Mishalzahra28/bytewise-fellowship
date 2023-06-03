@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../utils/tweet.dart';
-import "../../Models/Tweet.dart";
-import "../../Models/UserModels.dart";
+import '../../utils/newTweet.dart';
+import '../../services/Models/Tweet.dart';
+import '../../services/Models/UserModels.dart';
 import "../../utils/TweetContainer.dart";
 import "../../services/constants.dart";
 import "../../services/DatabaseService.dart";

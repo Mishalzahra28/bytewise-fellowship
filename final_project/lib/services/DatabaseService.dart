@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import './constants.dart';
-import "../Models/Activity.dart";
-import "../Models/Tweet.dart";
-import '../Models/UserModels.dart';
+import 'Models/Activity.dart';
+import 'Models/Tweet.dart';
+import 'Models/UserModels.dart';
+// import "../views/EditProfileScreen/EditProfileScreen.dart";
+// import "../utils/button.dart";
 
 class DatabaseService {
   static Future<int> followersNum(String userId) async {

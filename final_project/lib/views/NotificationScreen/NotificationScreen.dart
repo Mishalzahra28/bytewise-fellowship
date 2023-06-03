@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../services/constants.dart';
-import '../../Models/Activity.dart';
-import '../../Models/UserModels.dart';
+import '../../services/Models/Activity.dart';
+import '../../services/Models/UserModels.dart';
 import '../../services/DatabaseService.dart';
 
 class NotificationsScreen extends StatefulWidget {

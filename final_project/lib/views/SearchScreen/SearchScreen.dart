@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import '../../services/constants.dart';
-import '../../Models/UserModels.dart';
+import '../../services/Models/UserModels.dart';
 import '../profile/Profile.dart';
 import '../../services/DatabaseService.dart';
 
