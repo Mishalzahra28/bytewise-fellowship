@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import './constants.dart';
-import '../Models/Activity.dart';
-import '../Models/Tweet.dart';
+import "../Models/Activity.dart";
+import "../Models/Tweet.dart";
 import '../Models/UserModels.dart';
 
 class DatabaseService {
@@ -157,7 +157,7 @@ class DatabaseService {
 
     likesRef.doc(tweet.id).collection('tweetLikes').doc(currentUserId).set({});
 
-    // addActivity(currentUserId, tweet, false, null);
+    addActivity(currentUserId, tweet, false, "");
   }
 
   static void unlikeTweet(String currentUserId, Tweet tweet) {
